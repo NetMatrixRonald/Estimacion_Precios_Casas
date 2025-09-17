@@ -15,7 +15,7 @@ from sklearn.metrics import mean_absolute_error, r2_score
 
 def load_data(path: str) -> pd.DataFrame:
     if not os.path.exists(path):
-        raise FileNotFoundError(f"No existe el dataset limpio en {path}. Ejecuta scripts/cleaning.py primero.")
+        raise FileNotFoundError(f"No existee el dataset limpio en {path}. Ejecuta scripts/cleaning.py primero.")
     return pd.read_csv(path)
 
 
