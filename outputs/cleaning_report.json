@@ -1,0 +1,107 @@
+{
+  "exploration": {
+    "shape": [
+      1000,
+      5
+    ],
+    "dtypes": {
+      "superficie": "object",
+      "habitaciones": "object",
+      "antiguedad": "object",
+      "ubicacion": "object",
+      "precio": "float64"
+    },
+    "nulls": {
+      "superficie": 0,
+      "habitaciones": 20,
+      "antiguedad": 0,
+      "ubicacion": 20,
+      "precio": 0
+    }
+  },
+  "problems_summary": {
+    "superficie_non_numeric": 0,
+    "habitaciones_out_of_range": 0,
+    "antiguedad_negative_fixed": 0,
+    "ubicacion_fixed": 0,
+    "precio_outliers_marked": 20
+  },
+  "after_shape": [
+    980,
+    5
+  ],
+  "examples_before": [
+    {
+      "superficie": "152",
+      "habitaciones": "5",
+      "antiguedad": "2",
+      "ubicacion": "rural",
+      "precio": 259369.0
+    },
+    {
+      "superficie": "485",
+      "habitaciones": "tres",
+      "antiguedad": "39",
+      "ubicacion": "rural",
+      "precio": 532012.0
+    },
+    {
+      "superficie": "398",
+      "habitaciones": "4",
+      "antiguedad": "nueva",
+      "ubicacion": "rural",
+      "precio": 464716.0
+    },
+    {
+      "superficie": "320",
+      "habitaciones": "2",
+      "antiguedad": "39",
+      "ubicacion": "rural",
+      "precio": 341759.0
+    },
+    {
+      "superficie": "156",
+      "habitaciones": "1",
+      "antiguedad": "26",
+      "ubicacion": "urbano",
+      "precio": 171933.0
+    }
+  ],
+  "examples_after": [
+    {
+      "superficie": 152.0,
+      "habitaciones": 5.0,
+      "antiguedad": 2,
+      "ubicacion": "rural",
+      "precio": 259369.0
+    },
+    {
+      "superficie": 485.0,
+      "habitaciones": 3.0,
+      "antiguedad": 39,
+      "ubicacion": "rural",
+      "precio": 532012.0
+    },
+    {
+      "superficie": 398.0,
+      "habitaciones": 4.0,
+      "antiguedad": 0,
+      "ubicacion": "rural",
+      "precio": 464716.0
+    },
+    {
+      "superficie": 320.0,
+      "habitaciones": 2.0,
+      "antiguedad": 39,
+      "ubicacion": "rural",
+      "precio": 341759.0
+    },
+    {
+      "superficie": 156.0,
+      "habitaciones": 1.0,
+      "antiguedad": 26,
+      "ubicacion": "urbano",
+      "precio": 171933.0
+    }
+  ]
+}

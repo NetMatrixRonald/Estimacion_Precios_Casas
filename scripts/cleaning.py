@@ -162,7 +162,7 @@ def clean_dataframe(df: pd.DataFrame) -> Tuple[pd.DataFrame, dict]:
     med_por_sup = df.groupby(superficie_bins)["habitaciones"].median()
     def _impute_hab(row):
         if not pd.isna(row["habitaciones"]):
-            return row["habitaciones"]]
+            return row["habitaciones"]
         try:
             binv = superficie_bins.loc[row.name]
             val = med_por_sup.get(binv, np.nan)
