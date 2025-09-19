@@ -2,7 +2,7 @@
 
 Este proyecto limpia datos de viviendas, entrena un Árbol de Regresión y expone un endpoint de predicción con FastAPI.
 
-## 1) Instalación
+## 1) Instalaciónn
 
 ```bash
 python -m venv .venv
