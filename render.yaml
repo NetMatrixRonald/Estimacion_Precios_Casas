@@ -8,9 +8,11 @@ services:
     buildCommand: |
       python -V
       python -m pip install --upgrade "pip>=25.2" "setuptools>=75.0.0" "wheel>=0.44.0"
-      # Instalar dependencias desde wheels precompilados cuando existan
-      python -m pip install --only-binary=:all: --prefer-binary -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+      # Instalar numpy y pandas estrictamente desde wheels precompilados
+      python -m pip install --only-binary=:all: --prefer-binary numpy==1.26.4 pandas==2.2.2
+      # Instalar el resto con preferencia por wheels
+      python -m pip install --prefer-binary -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     autoDeploy: true
     healthCheckPath: /health
     envVars:

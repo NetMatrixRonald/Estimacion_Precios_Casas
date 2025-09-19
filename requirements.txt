@@ -1,11 +1,12 @@
-fastapi==0.111.0
-uvicorn[standard]==0.30.0
-pydantic==1.10.15
-numpy==1.26.4
+fastapi==0.115.0
+uvicorn==0.30.0
 pandas==2.2.2
-scikit-learn==1.4.2
+numpy==1.26.4
+scikit-learn==1.5.1
 joblib==1.4.2
 requests==2.32.3
+# Pydantic v2 con shim v1 para compatibilidad
+pydantic>=2.7,<3
 # Herramientas de build actualizadas para evitar metadata-generation-failed
 pip>=25.2
 setuptools>=75.0.0
