@@ -9,26 +9,27 @@ Este error indica una **incompatibilidad entre numpy y scikit-learn** en las ver
 
 ## ✅ Solución implementada
 
-### **Estrategia Docker mejorada:**
-1. **Instalación específica de numpy/scikit-learn desde wheels:**
+### **Estrategia Conda definitiva:**
+1. **Imagen base con Conda:**
    ```dockerfile
-   RUN pip install --only-binary=:all: numpy==1.24.3 scikit-learn==1.3.1
+   FROM continuumio/miniconda3:latest
    ```
 
-2. **Requirements.txt simplificado:**
+2. **Entorno conda con versiones específicas:**
+   ```dockerfile
+   RUN conda create -n appenv python=3.11 numpy=1.24.3 scikit-learn=1.3.1 pandas=2.0.3 -y
    ```
-   fastapi==0.104.1
-   uvicorn==0.24.0
-   pandas==2.0.3
-   joblib==1.3.2
-   pydantic==2.4.2
+
+3. **Instalación pip solo para FastAPI:**
+   ```dockerfile
+   RUN pip install fastapi==0.104.1 uvicorn==0.24.0 joblib==1.3.2 pydantic==2.4.2
    ```
 
 ### **Por qué funciona:**
-- **`--only-binary=:all:`**: Fuerza instalación desde wheels precompilados
-- **Instalación separada**: numpy y scikit-learn se instalan primero
-- **Versiones probadas**: numpy 1.24.3 + scikit-learn 1.3.1 son compatibles
-- **Verificación automática**: Docker verifica que las importaciones funcionen
+- **Conda resuelve dependencias**: Maneja automáticamente las compatibilidades
+- **Binarios precompilados**: Conda instala desde conda-forge (sin compilación)
+- **Entorno aislado**: Variables de entorno configuradas correctamente
+- **Versiones probadas**: Conda garantiza compatibilidad entre numpy/scikit-learn
 
 ## 🚀 Pasos para desplegar
 

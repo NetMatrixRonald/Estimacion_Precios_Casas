@@ -1,18 +1,18 @@
-# Usar Python 3.11 oficial
-FROM python:3.11-slim
+# Usar imagen con numpy y scikit-learn ya instalados
+FROM continuumio/miniconda3:latest
 
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Actualizar pip y instalar herramientas
-RUN pip install --upgrade pip setuptools wheel
+# Crear entorno conda con versiones específicas
+RUN conda create -n appenv python=3.11 numpy=1.24.3 scikit-learn=1.3.1 pandas=2.0.3 -y
 
-# Instalar numpy y scikit-learn específicamente desde wheels
-RUN pip install --only-binary=:all: numpy==1.24.3 scikit-learn==1.3.1
+# Activar entorno
+ENV CONDA_DEFAULT_ENV=appenv
+ENV PATH=/opt/conda/envs/$CONDA_DEFAULT_ENV/bin:$PATH
 
-# Copiar requirements y instalar el resto
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalar dependencias adicionales con pip
+RUN pip install fastapi==0.104.1 uvicorn==0.24.0 joblib==1.3.2 pydantic==2.4.2
 
 # Copiar archivos esenciales
 COPY main.py .
@@ -20,7 +20,7 @@ COPY artifacts/ artifacts/
 COPY scripts/ scripts/
 
 # Verificar instalación
-RUN python -c "import numpy, sklearn; print('numpy:', numpy.__version__, 'sklearn:', sklearn.__version__)"
+RUN python -c "import numpy, sklearn, pandas; print('numpy:', numpy.__version__, 'sklearn:', sklearn.__version__, 'pandas:', pandas.__version__)"
 
 # Exponer puerto
 EXPOSE 8000
