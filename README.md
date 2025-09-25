@@ -10,15 +10,17 @@ API simple de FastAPI para predecir precios de casas en Colombia usando un model
    - New → Web Service
    - Conectar repositorio de GitHub
    - **Environment**: Python 3
-   - **Build Command**: (dejar vacío)
+   - **Python Version**: 3.11.9
+   - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 3. Deploy
 
 ### Archivos importantes:
 - `main.py` - Aplicación FastAPI completa
 - `requirements.txt` - Dependencias con versiones estables
-- `Procfile` - Comando de inicio para Render
-- `runtime.txt` - Python 3.11.7
+- `render.yaml` - Configuración específica para Render
+- `runtime.txt` - Python 3.11.9
+- `.python-version` - Versión de Python para pyenv
 - `artifacts/model.pkl` - Modelo entrenado
 - `scripts/cleaning.py` - Funciones de limpieza de datos
 
