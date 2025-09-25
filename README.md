@@ -55,7 +55,8 @@ python main.py
 - ✅ **Wheels precompilados** - Sin compilación C/Cython
 - ✅ **Estructura simple** - Un solo archivo main.py
 - ✅ **Modelo ya entrenado** - Listo para usar
-- ✅ **API probada** - Funciona localmente
+- ✅ **API probada** - Funciona localmente y en Render
+- ✅ **Funciones de limpieza integradas** - Fallback automático
 
 ## 🎯 Por qué Docker funciona
 

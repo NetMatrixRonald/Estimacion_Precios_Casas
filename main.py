@@ -11,7 +11,36 @@ from pydantic import BaseModel, Field
 # Importar funciones de limpieza
 import sys
 sys.path.append('scripts')
-from cleaning import clean_superficie, clean_habitaciones, clean_antiguedad, clean_ubicacion
+try:
+    from cleaning import clean_superficie, clean_habitaciones, clean_antiguedad, clean_ubicacion
+except ImportError:
+    # Funciones de limpieza básicas si no se puede importar
+    def clean_superficie(x):
+        if isinstance(x, str):
+            import re
+            nums = re.findall(r'\d+', x)
+            return float(nums[0]) if nums else 70.0
+        return float(x) if x else 70.0
+    
+    def clean_habitaciones(x):
+        if isinstance(x, str):
+            text_to_num = {'uno': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5}
+            return text_to_num.get(x.lower(), 3)
+        return int(x) if x else 3
+    
+    def clean_antiguedad(x):
+        if isinstance(x, str):
+            if x.lower() == 'nueva':
+                return 0
+            import re
+            nums = re.findall(r'\d+', x)
+            return float(nums[0]) if nums else 10
+        return int(x) if x else 10
+    
+    def clean_ubicacion(x):
+        if isinstance(x, str):
+            return x.lower() if x.lower() in ['urbano', 'rural'] else 'urbano'
+        return 'urbano'
 
 app = FastAPI(title="API Precio Casas", version="1.0.0")
 
