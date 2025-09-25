@@ -9,22 +9,26 @@ Este error indica una **incompatibilidad entre numpy y scikit-learn** en las ver
 
 ## ✅ Solución implementada
 
-### **Versiones actualizadas en requirements.txt:**
-```
-fastapi==0.104.1
-uvicorn==0.24.0
-pandas==2.0.3
-numpy==1.24.4          # ← Actualizado (era 1.24.3)
-scikit-learn==1.3.2    # ← Actualizado (era 1.3.0)
-joblib==1.3.2
-pydantic==2.4.2
-setuptools>=65.0.0
-```
+### **Estrategia Docker mejorada:**
+1. **Instalación específica de numpy/scikit-learn desde wheels:**
+   ```dockerfile
+   RUN pip install --only-binary=:all: numpy==1.24.3 scikit-learn==1.3.1
+   ```
+
+2. **Requirements.txt simplificado:**
+   ```
+   fastapi==0.104.1
+   uvicorn==0.24.0
+   pandas==2.0.3
+   joblib==1.3.2
+   pydantic==2.4.2
+   ```
 
 ### **Por qué funciona:**
-- **numpy 1.24.4**: Versión más estable con mejor compatibilidad
-- **scikit-learn 1.3.2**: Compatible con numpy 1.24.4
-- **setuptools**: Herramientas de build actualizadas
+- **`--only-binary=:all:`**: Fuerza instalación desde wheels precompilados
+- **Instalación separada**: numpy y scikit-learn se instalan primero
+- **Versiones probadas**: numpy 1.24.3 + scikit-learn 1.3.1 son compatibles
+- **Verificación automática**: Docker verifica que las importaciones funcionen
 
 ## 🚀 Pasos para desplegar
 
