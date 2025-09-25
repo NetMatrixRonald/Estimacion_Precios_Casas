@@ -18,7 +18,6 @@ RUN pip install fastapi==0.104.1 uvicorn==0.24.0 joblib==1.3.2 pydantic==2.4.2
 # Copiar archivos esenciales
 COPY main.py .
 COPY artifacts/ artifacts/
-COPY scripts/ scripts/
 
 # Verificar instalación
 RUN python -c "import numpy, sklearn, pandas; print('numpy:', numpy.__version__, 'sklearn:', sklearn.__version__, 'pandas:', pandas.__version__)"
