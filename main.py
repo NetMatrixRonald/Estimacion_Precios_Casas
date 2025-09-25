@@ -82,6 +82,25 @@ def health():
         version = datetime.utcfromtimestamp(os.path.getmtime(MODEL_PATH)).isoformat() + "Z"
     return {"status": "ok" if ok else "model_missing", "model_version": version}
 
+@app.get("/debug")
+def debug():
+    files = []
+    try:
+        for root, dirs, filenames in os.walk("."):
+            for filename in filenames:
+                if filename.endswith(('.pkl', '.py')):
+                    files.append(os.path.join(root, filename))
+    except Exception as e:
+        files = [f"Error: {str(e)}"]
+    
+    return {
+        "model_exists": os.path.exists(MODEL_PATH),
+        "model_path": MODEL_PATH,
+        "current_dir": os.getcwd(),
+        "files": files[:10],  # Solo primeros 10 archivos
+        "python_path": sys.path[:3]  # Solo primeros 3 paths
+    }
+
 def transform_payload(payload: PredictRequest) -> pd.DataFrame:
     s = clean_superficie(payload.superficie)
     h = clean_habitaciones(payload.habitaciones)
@@ -109,8 +128,8 @@ def transform_payload(payload: PredictRequest) -> pd.DataFrame:
 @app.post("/predict", response_model=PredictResponse)
 def predict(payload: PredictRequest):
     start = time.perf_counter()
-    model = load_model()
     try:
+        model = load_model()
         X = transform_payload(payload)
         pred = float(model.predict(X)[0])
         ms = (time.perf_counter() - start) * 1000
@@ -120,8 +139,10 @@ def predict(payload: PredictRequest):
             model_version=_model_version,
             prediction_ms=ms,
         )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Modelo no encontrado: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn

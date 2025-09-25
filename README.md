@@ -25,6 +25,7 @@ API simple de FastAPI para predecir precios de casas en Colombia usando un model
 
 - `GET /` - Información de la API
 - `GET /health` - Estado del servicio
+- `GET /debug` - Información de debug (archivos, rutas)
 - `POST /predict` - Predicción de precios
 
 ### Ejemplo de predicción:

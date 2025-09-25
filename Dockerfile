@@ -8,8 +8,13 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar código de la aplicación
-COPY . .
+# Copiar archivos esenciales primero
+COPY main.py .
+COPY artifacts/ artifacts/
+COPY scripts/ scripts/
+
+# Verificar que el modelo existe
+RUN ls -la artifacts/
 
 # Exponer puerto
 EXPOSE 8000
