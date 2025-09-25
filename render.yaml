@@ -3,7 +3,6 @@ services:
     name: casas-precios-api
     env: docker
     plan: free
-    dockerfilePath: Dockerfile.conda
     autoDeploy: true
     healthCheckPath: /health
     envVars:

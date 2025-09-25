@@ -57,8 +57,9 @@ El proyecto está configurado para desplegarse en Render usando Docker con Conda
 
 ### Archivos de configuración:
 - `render.yaml`: Configuración para Render con Docker
-- `Dockerfile.conda`: Imagen basada en conda-forge con paquetes precompilados
+- `Dockerfile`: Imagen basada en conda-forge con paquetes precompilados (evita compilación C/Cython)
 - `requirements.txt`: Dependencias con versiones fijas
+- `.dockerignore`: Optimiza el build excluyendo archivos innecesarios
 
 ### Despliegue en Render:
 1. Subir el repositorio a GitHub
@@ -70,7 +71,7 @@ El proyecto está configurado para desplegarse en Render usando Docker con Conda
 ### Probar localmente:
 ```bash
 # Construir la imagen
-docker build -f Dockerfile.conda -t casas-api .
+docker build -t casas-api .
 
 # Ejecutar localmente
 docker run --rm -p 8000:8000 -e PORT=8000 casas-api
