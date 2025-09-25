@@ -1,22 +1,11 @@
 services:
   - type: web
     name: casas-precios-api
-    env: python
+    env: docker
     plan: free
-    runtime: python
-    pythonVersion: 3.11
-    buildCommand: |
-      python -V
-      python -m pip install --upgrade "pip>=25.2" "setuptools>=75.0.0" "wheel>=0.44.0"
-      # Instalar numpy y pandas estrictamente desde wheels precompilados
-      python -m pip install --only-binary=:all: --prefer-binary numpy==1.26.4 pandas==2.2.2
-      # Instalar el resto con preferencia por wheels
-      python -m pip install --prefer-binary -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    dockerfilePath: Dockerfile.conda
     autoDeploy: true
     healthCheckPath: /health
     envVars:
-      - key: PYTHONDONTWRITEBYTECODE
-        value: "1"
-      - key: PYTHONUNBUFFERED
-        value: "1"
+      - key: PORT
+        value: "8000"

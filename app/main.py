@@ -7,7 +7,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
-from pydantic.v1 import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 # importar funciones de limpieza
 from scripts.cleaning import (
@@ -24,7 +24,8 @@ class PredictRequest(BaseModel):
     antiguedad: int | str = Field(..., description="Años desde construcción o 'nueva'")
     ubicacion: str = Field(..., description="'urbano' o 'rural'")
 
-    @validator("habitaciones")
+    @field_validator("habitaciones")
+    @classmethod
     def _validate_hab(cls, v):
         return v
 

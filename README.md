@@ -53,16 +53,35 @@ Ejemplo de request:
 
 ## 5) Despliegue en Render
 
-1. Subir el repo a GitHub.
-2. En Render, crear un servicio "Web Service" de tipo Python.
-3. Seleccionar el repo y usar `Procfile` con:
+El proyecto está configurado para desplegarse en Render usando Docker con Conda para evitar problemas de compilación.
 
-```
-web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+### Archivos de configuración:
+- `render.yaml`: Configuración para Render con Docker
+- `Dockerfile.conda`: Imagen basada en conda-forge con paquetes precompilados
+- `requirements.txt`: Dependencias con versiones fijas
+
+### Despliegue en Render:
+1. Subir el repositorio a GitHub
+2. En Render, crear un "Web Service" 
+3. Conectar el repositorio de GitHub
+4. Render detectará automáticamente el `render.yaml` y usará Docker
+5. El servicio estará disponible en la URL proporcionada por Render
+
+### Probar localmente:
+```bash
+# Construir la imagen
+docker build -f Dockerfile.conda -t casas-api .
+
+# Ejecutar localmente
+docker run --rm -p 8000:8000 -e PORT=8000 casas-api
+
+# Probar endpoint
+curl http://localhost:8000/health
 ```
 
-4. Configurar `Build Command` (opcional): `pip install -r requirements.txt`.
-5. Deploy.
+### Endpoints disponibles:
+- `GET /health`: Estado del servicio y versión del modelo
+- `POST /predict`: Predicción de precio de casas
 
 ## 6) Tests
 
