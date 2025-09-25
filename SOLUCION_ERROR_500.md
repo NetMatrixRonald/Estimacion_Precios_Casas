@@ -15,9 +15,10 @@ Este error indica una **incompatibilidad entre numpy y scikit-learn** en las ver
    FROM continuumio/miniconda3:latest
    ```
 
-2. **Entorno conda con versiones específicas:**
+2. **Entorno conda con conda-forge:**
    ```dockerfile
-   RUN conda create -n appenv python=3.11 numpy=1.24.3 scikit-learn=1.3.1 pandas=2.0.3 -y
+   RUN conda create -n appenv python=3.11 -c conda-forge -y
+   RUN conda install -n appenv numpy pandas scikit-learn -c conda-forge -y
    ```
 
 3. **Instalación pip solo para FastAPI:**

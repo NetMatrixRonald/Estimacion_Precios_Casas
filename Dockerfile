@@ -4,8 +4,9 @@ FROM continuumio/miniconda3:latest
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Crear entorno conda con versiones específicas
-RUN conda create -n appenv python=3.11 numpy=1.24.3 scikit-learn=1.3.1 pandas=2.0.3 -y
+# Crear entorno conda con versiones disponibles desde conda-forge
+RUN conda create -n appenv python=3.11 -c conda-forge -y
+RUN conda install -n appenv numpy pandas scikit-learn -c conda-forge -y
 
 # Activar entorno
 ENV CONDA_DEFAULT_ENV=appenv
